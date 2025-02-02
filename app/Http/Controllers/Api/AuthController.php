@@ -55,4 +55,64 @@ class AuthController extends Controller
             return response()->json($th);
         }
     }
+
+    public function logOut(Request $request) {
+        try {
+            $user = Auth::user();
+            $user->tokens()->delete();
+
+            return response()->json([
+                'statut' => 200,
+                'message' => "logout success"
+            ]);
+        } catch (\Exception $th) {
+            return response()->json($th);
+        }
+    }
+
+    public function setUserPassword(Request $request) {
+        try {
+            $user = Auth::user();
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            return response()->json([
+                'statut' => 200,
+                'message' => "password updated successfully"
+            ]);
+        } catch (\Exception $th) {
+            return response()->json($th);
+        }
+    }
+
+    public function deleteUserAccount(Request $request) {
+        try {
+            $user = Auth::user();
+            $user->delete();
+
+            return response()->json([
+                'statut' => 200,
+                'message' => "compte utilisateur supprimé avec succès"
+            ]);
+        } catch (\Exception $th) {
+            return response()->json($th);
+        }
+    }
+
+    public function updateUserAccountInfos(Request $request) {
+        try {
+            $user = Auth::user();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->save();
+
+            return response()->json([
+                'statut' => 200,
+                'message' => "informations du compte utilisateur mises à jour avec succès",
+                'user' => $user
+            ]);
+        } catch (\Exception $th) {
+            return response()->json($th);
+        }
+    }
 }

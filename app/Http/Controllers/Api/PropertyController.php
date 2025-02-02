@@ -6,11 +6,16 @@ use auth;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-// use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Api\StorePropertyRequest;
 
 class PropertyController extends Controller
 {
+    // public function userProperties()
+    // {
+    //     $user = auth()->user();
+    //     $properties = Property::where('user_id', $user->id)->with('category', 'images')->get();
+    //     return response()->json($properties);
+    // }
     public function store(StorePropertyRequest $request){
         $user = auth()->user(); // Utilisateur connecté
 

@@ -25,8 +25,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('immo/v1/addcategorie', [PropertyCategorieController::class, 'addCategorie']);
     Route::get('immo/v1/listcategories', [PropertyCategorieController::class, 'listCategories']);
     Route::delete('immo/v1/deletecategorie/{id}', [PropertyCategorieController::class, 'deleteCategorie']);
+    Route::put('immo/v1/updateCategorie/{id}',[propertyCategorieController::class, 'updateCategorie']);
     Route::post('immo/v1/addpropert', [PropertyController::class, 'store']);
     Route::delete('immo/v1/deletepropert/{property}', [PropertyController::class, 'destroy']);
 });
-// Route::middleware('auth:sanctum')->post('immo/v1/addcategorie', [propertyCategorieController::class, 'addCategorie']);
-
