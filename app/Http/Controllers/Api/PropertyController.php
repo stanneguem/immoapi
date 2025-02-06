@@ -10,12 +10,13 @@ use App\Http\Requests\Api\StorePropertyRequest;
 
 class PropertyController extends Controller
 {
-    // public function userProperties()
-    // {
-    //     $user = auth()->user();
-    //     $properties = Property::where('user_id', $user->id)->with('category', 'images')->get();
-    //     return response()->json($properties);
-    // }
+    public function userProperties()
+    {
+        $user = auth()->user();
+        $properties = Property::where('user_id', $user->id)->with('category', 'images')->get();
+        return response()->json($properties);
+    }
+    
     public function store(StorePropertyRequest $request){
         $user = auth()->user(); // Utilisateur connecté
 
@@ -46,9 +47,10 @@ class PropertyController extends Controller
         ], 201);
     }
 
-    public function destroy(Property $property)
+    public function destroy($id)
     {
-        if ($property->user_id !== auth()->id()) {
+        $property = Property::find($id);
+        if ($property->user_id != auth()->id()) {
             return response()->json(['message' => 'Propriété non trouvée ou non autorisée'], 403);
         }
 
@@ -57,7 +59,7 @@ class PropertyController extends Controller
     }
 
     public function index(){
-        $properties = Property::with('user', 'category', 'images')->paginate(20);
+        $properties = Property::with('images')->paginate(20);
         return response()->json($properties);
     }
 

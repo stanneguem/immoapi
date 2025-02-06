@@ -18,14 +18,16 @@ use App\Http\Controllers\Api\propertyCategorieController;
 |
 */
 
-Route::post('immo/v1/login', [AuthController::class, 'login']);
-Route::post('immo/v1/register', [AuthController::class, 'register']);
+Route::post('v1/login', [AuthController::class, 'login']);
+Route::post('v1/register', [AuthController::class, 'register']);
+Route::get('v1/', [PropertyController::class, 'index']);
+Route::get('v1/category', [PropertyCategorieController::class, 'listCategories']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('immo/v1/addcategorie', [PropertyCategorieController::class, 'addCategorie']);
-    Route::get('immo/v1/listcategories', [PropertyCategorieController::class, 'listCategories']);
-    Route::delete('immo/v1/deletecategorie/{id}', [PropertyCategorieController::class, 'deleteCategorie']);
-    Route::put('immo/v1/updateCategorie/{id}',[propertyCategorieController::class, 'updateCategorie']);
-    Route::post('immo/v1/addpropert', [PropertyController::class, 'store']);
-    Route::delete('immo/v1/deletepropert/{property}', [PropertyController::class, 'destroy']);
+    Route::post('v1/category', [PropertyCategorieController::class, 'addCategorie']);
+    Route::delete('v1/category/{id}', [PropertyCategorieController::class, 'deleteCategorie']);
+    Route::put('v1/category/{id}',[propertyCategorieController::class, 'updateCategorie']);
+    Route::post('v1/property', [PropertyController::class, 'store']);
+    Route::delete('v1/property/{id}', [PropertyController::class, 'destroy']);
 });
