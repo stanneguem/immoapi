@@ -7,6 +7,7 @@ use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StorePropertyRequest;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class PropertyController extends Controller
 {
@@ -73,7 +74,7 @@ class PropertyController extends Controller
 
     public function update(StorePropertyRequest $request, $id){
         $property = Property::find($id);
-        if (!$property || $property->user_id !== Auth::id()) {
+        if (!$property || $property->user_id !== FacadesAuth::id()) {
             return response()->json(['message' => 'Propriété non trouvée ou non autorisée'], 403);
         }
 
